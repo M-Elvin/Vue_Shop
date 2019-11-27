@@ -4,6 +4,7 @@ import router from './router'
 import './plugins/element.js'
 import './assets/css/gloabl.css'
 import './assets/fonts/iconfont.css'
+import TreeTable from 'vue-table-with-tree-grid'
 
 import axios from 'axios'
 
@@ -17,6 +18,8 @@ axios.interceptors.request.use(config => {
 })
 Vue.prototype.$http = axios
 // 挂载到实力当中
+
+Vue.component('tree-table', TreeTable)
 
 Vue.config.productionTip = false
 

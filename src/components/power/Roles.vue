@@ -63,21 +63,21 @@
     </el-card>
 
     <!-- 分配权限对话框 -->
-     <el-dialog
+    <el-dialog
         title="分配权限"
         :visible.sync="setRightDialogVisible"
         @close="setRightDialogClosed"
         width="50%"
         >
         <el-tree :data="rightslist" :props="treeProps"
-         show-checkbox node-key="id" default-expand-all
-         :default-checked-keys="defKeys" ref="treeRef"></el-tree>
+            show-checkbox node-key="id" default-expand-all
+            :default-checked-keys="defKeys" ref="treeRef"></el-tree>
         <!-- 对话框底部区 -->
         <span slot="footer" class="dialog-footer">
-          <el-button @click="setRightDialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="allotRights">确 定</el-button>
+            <el-button @click="setRightDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="allotRights">确 定</el-button>
         </span>
-      </el-dialog>
+    </el-dialog>
 </div>
 </template>
 
@@ -119,16 +119,16 @@ export default {
         async removeRightById(role,rightId){
         const confirmResult = await this.$confirm('将永久删除该文件,是否继续?','提示',
         {
-          confirmButtonText:'确定',
-          cancelButtonText:'取消',
-          type:'warning'
+            confirmButtonText:'确定',
+            cancelButtonText:'取消',
+            type:'warning'
         }).catch(err=>err)
         // console.log(confirmResult); cancel取消  confirm确定
         if(confirmResult !=='confirm'){return this.$message.info('已取消删除')}
 
         const {data:res}=await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
         if(res.meta.status !==200){
-          return this.$message.error('删除权限失败!')
+        return this.$message.error('删除权限失败!')
         }
         this.$message.success('删除权限成功!')
         // this.getUserList()
@@ -156,7 +156,7 @@ export default {
                 return arr.push(node.id)
             }
             node.children.forEach(item=>{
-               this.getLeafKeys(item,arr)
+            this.getLeafKeys(item,arr)
             })
         },
         // 关闭后重置树状分配权限列表
