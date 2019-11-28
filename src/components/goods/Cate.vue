@@ -67,11 +67,15 @@
           </el-form-item>
            <el-form-item label="父级分类" >
                <!-- options用来指定数据来源 -->
-               <el-cascader 
-               :options="parentCateList"
-               :props="cascaderProps" 
-               v-model="selectedKeys"
-               @change="parentCateChanged" clearable change-on-select ></el-cascader>
+               <!-- props用来指定配置对象 -->
+            <el-cascader
+                expand-trigger="hover"
+                :options="parentCateList"
+                :props="cascaderProps"
+                v-model="selectedKeys"
+                @change="parentCateChanged"
+                clearable change-on-select>
+            </el-cascader>
           </el-form-item>
         </el-form>
         <!-- 对话框底部区 -->
@@ -140,9 +144,9 @@ export default {
         parentCateList:[],
      // 指定级联选择器的配置对象
       cascaderProps: {
-        value :'cat_id',
-        label :'cat_name',
-        children :'children'
+        value:'cat_id',
+        label:'cat_name',
+        children:'children'
       },
           // 选中的父级分类的Id数组
       selectedKeys: []
@@ -185,14 +189,14 @@ export default {
         },
         // 获取分类的数据列表
         async getParentCateList(){
-            const {data:res}=await this.$http.get('categories',{ params:{type:3} })
+            const {data:res}=await this.$http.get('categories',{ params:{ type: 2 } })
 
             if(res.meta.status !==200){
                 return this.$message.error('获取父级分类数据失败! ')
             }
             console.log(res.data);
             
-            this.parentCateList = res.data
+            this.parentCateList=res.data
             console.log(this.parentCateList);
             
         },
@@ -203,7 +207,7 @@ export default {
     parentCateChanged() {
       console.log(this.selectedKeys)
       // 如果 selectedKeys 数组中的 length 大于0，证明选中的父级分类
-      // 反之，就说明没有选中任何父级分类
+    //   反之，就说明没有选中任何父级分类
       if (this.selectedKeys.length > 0) {
         // 父级分类的Id
         this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
@@ -245,11 +249,12 @@ export default {
 }
 </script>
 
-<style lange="less" scoped>
+<style lang="less" scoped>
 .treeTable{
     margin-top: 15px;
 }
 .el-cascader{
     width: 100%;
+ 
 }
 </style>
